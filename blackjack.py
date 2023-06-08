@@ -6,13 +6,14 @@ def dealCard():
     card = random.choice(cards) 
     return card
 
-user_cards = []
-computer_cards = []
+userCards = []
+computerCards = []
+isGameOver = False
 
 for _ in range(2):
     "Deals two cards to the user and the computer."
-    user_cards.append(dealCard())
-    computer_cards.append(dealCard())
+    userCards.append(dealCard())
+    computerCards.append(dealCard())
 
 def calculateScore(cards):
     """Takes a list of cards and returns the score calculated from the cards."""
@@ -23,5 +24,28 @@ def calculateScore(cards):
         cards.append(1)
     return sum(cards)
 
-calculateScore(user_cards)
-calculateScore(computer_cards)
+while not isGameOver:
+    "While the game is not over, the user can choose to get another card or pass."
+    userScore = calculateScore(userCards)
+    compScore = calculateScore(computerCards)
+
+    print(f"Your cards: {userCards}, current score: {userScore}")
+    print(f"Computers cards: {computerCards}, current score: {compScore}")
+
+    if userScore == 0 or compScore == 0 or userScore > 21:
+        isGameOver = True
+    else:
+        anotherCard = input("Type 'y' to get another card, type 'n' to pass: ")
+        if anotherCard == 'y':
+            userCards.append(dealCard())
+            userScore = calculateScore(userCards)
+        else:
+            isGameOver = True
+
+while compScore != 0 and compScore < 17:
+    "The computer will get another card if the score is less than 17."
+    computerCards.append(dealCard())
+    compScore = calculateScore(computerCards)
+
+print(f"Your final hand: {userCards}, final score: {userScore}")
+print(f"Computer's final hand: {computerCards}, final score: {compScore}")
