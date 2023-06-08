@@ -6,7 +6,6 @@ def dealCard():
     card = random.choice(cards) 
     return card
 
-
 def calculateScore(cards):
     """Takes a list of cards and returns the score calculated from the cards."""
     if sum(cards) == 21 and len(cards) == 2:
@@ -32,7 +31,6 @@ def compare(userScore, compScore):
         return "You win"
     else:
         return "You lose"
-
 
 def playGame():
     """Plays the game of Blackjack."""
